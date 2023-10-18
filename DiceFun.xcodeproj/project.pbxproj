@@ -15,6 +15,7 @@
 		638DE5832ADEE11700037283 /* FileManager-DocumentsDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638DE5822ADEE11700037283 /* FileManager-DocumentsDirectory.swift */; };
 		638DE5852ADEE15500037283 /* DiceRollListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638DE5842ADEE15500037283 /* DiceRollListView.swift */; };
 		638DE5872ADEED3600037283 /* ContentView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638DE5862ADEED3600037283 /* ContentView-ViewModel.swift */; };
+		63ADD04C2AE09A92009CBC18 /* DiceRollCustom1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 63ADD04B2AE09A92009CBC18 /* DiceRollCustom1.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		638DE5822ADEE11700037283 /* FileManager-DocumentsDirectory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager-DocumentsDirectory.swift"; sourceTree = "<group>"; };
 		638DE5842ADEE15500037283 /* DiceRollListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiceRollListView.swift; sourceTree = "<group>"; };
 		638DE5862ADEED3600037283 /* ContentView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContentView-ViewModel.swift"; sourceTree = "<group>"; };
+		63ADD04B2AE09A92009CBC18 /* DiceRollCustom1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = DiceRollCustom1.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 		638DE56D2ADEDEB300037283 /* DiceFun */ = {
 			isa = PBXGroup;
 			children = (
+				63ADD04B2AE09A92009CBC18 /* DiceRollCustom1.wav */,
 				638DE56E2ADEDEB300037283 /* DiceFunApp.swift */,
 				638DE57C2ADEDF7600037283 /* Models */,
 				638DE57E2ADEDF9E00037283 /* Views */,
@@ -163,6 +166,7 @@
 			files = (
 				638DE5762ADEDEB400037283 /* Preview Assets.xcassets in Resources */,
 				638DE5732ADEDEB400037283 /* Assets.xcassets in Resources */,
+				63ADD04C2AE09A92009CBC18 /* DiceRollCustom1.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
