@@ -8,36 +8,53 @@
 import AVFoundation
 import SwiftUI
 
+enum PickerColor: String, Hashable, Identifiable, CustomStringConvertible, CaseIterable {
+    case red
+    case yellow
+    case green
+    case blue
+    case purple
+
+    var id: String { rawValue }
+    var description: String { rawValue.capitalized }
+
+    var color: Color {
+        switch self {
+            case .red: .red
+            case .yellow: .yellow
+            case .green: .green
+            case .blue: .blue
+            case .purple: .purple
+        }
+    }
+}
 
 struct ContentView: View {
   @StateObject private var viewModel = ViewModel()
   
   @Environment(\.scenePhase) var scenePhase
   @AppStorage("soundOn") var soundOn = false
-  @AppStorage("selectedDiceColor") var selectedDiceColor = "Red"
-  
-  let diceColor = ["Red", "Blue", "Green", "Yellow", "Purple"]
+  @AppStorage("pickerColor") var pickerColor: PickerColor = .red
   
   var timer = Timer.publish(every: 0.2, on: .main, in: .common).autoconnect()
-  
+ 
   
   var body: some View {
     
-    NavigationView {
+    NavigationStack {
       GeometryReader { geo in
         VStack {
-          
-          Picker("Dice Color", selection: $selectedDiceColor) {
-            ForEach(diceColor, id: \.self) { type in
-              Text("\(type)")
+          Picker(selection: $pickerColor, content: {
+            ForEach(PickerColor.allCases) { color in
+              Text(color.description)
+                .tag(color)
             }
-          }
+          }, label: EmptyView.init)
           .pickerStyle(.segmented)
-          // this only seems to work when the view appears but does not change each time you click on the picker
-          //          .onAppear() {
-          //            print("This fired")
-          //            UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(color())
-          //            }
+          .tint(pickerColor.color)                                   // <- here
+          .onAppear(perform: updatePickerColor)
+          .onChange(of: pickerColor,
+                    updatePickerColor)
           .frame(height: 50)
           Text("Roll Total: \(viewModel.rollTotal)")
             .frame(width: 200)
@@ -48,14 +65,14 @@ struct ContentView: View {
             .clipShape(Capsule())
             .padding()
           HStack {
-            Image("\(selectedDiceColor)\(viewModel.diceVal1)")
+            Image("\(pickerColor)\(viewModel.diceVal1)")
               .resizable()
               .frame(width: geo.size.width * 0.425, height:  geo.size.height * 0.265)
               .rotation3DEffect(.degrees(viewModel.degree), axis: (x: 0, y: 0, z: 1))
               .offset(x: viewModel.bounce ? 0 : viewModel.dice1OffsetValX, y: viewModel.bounce ? 100 : viewModel.dice1OffsetValY)
               .animation(Animation.interpolatingSpring(stiffness: 50, damping: 15), value: viewModel.diceVal1)
             
-            Image("\(selectedDiceColor)\(viewModel.diceVal2)")
+            Image("\(pickerColor)\(viewModel.diceVal2)")
               .resizable()
               .frame(width: geo.size.width * 0.425, height:  geo.size.height * 0.265)
               .rotation3DEffect(.degrees(viewModel.degree2), axis: (x: 0, y: 0, z: 1))
@@ -162,22 +179,11 @@ struct ContentView: View {
     viewModel.diceRollSound.play()
   }
   
-  func color() -> Color {
-    switch selectedDiceColor {
-      case "Red":
-        return .red
-      case "Blue":
-        return .blue
-      case "Green":
-        return .green
-      case "Yellow":
-        return .yellow
-      case "Purple":
-        return .purple
-      default:
-        return .red
-    }
+  func updatePickerColor() {
+      let appearance = UISegmentedControl.appearance(for: .current)  // <- here
+      appearance.selectedSegmentTintColor = UIColor(pickerColor.color)
   }
+  
 }
 
 #Preview {

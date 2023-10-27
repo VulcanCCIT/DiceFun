@@ -8,18 +8,45 @@
 import AVFoundation
 import Foundation
 import SwiftUI
+import UIKit
+
+//enum PickerColor: String, Hashable, Identifiable, CustomStringConvertible, CaseIterable {
+//    case red
+//    case yellow
+//    case green
+//    case blue
+//    case purple
+//
+//    var id: String { rawValue }
+//    var description: String { rawValue.capitalized }
+//
+//    var color: Color {
+//        switch self {
+//            case .red: .red
+//            case .yellow: .yellow
+//            case .green: .green
+//            case .blue: .blue
+//            case .purple: .purple
+//        }
+//    }
+//}
 
 extension ContentView {
   @MainActor class ViewModel: ObservableObject {
     
+    
     let savePath = FileManager.documentsDirectory.appendingPathComponent("SavedRolls.json")
+    
+    //@Published var pickerColor: PickerColor = .red
+    
+   
     
     @Published var feedback = UIImpactFeedbackGenerator(style: .rigid)
     
     @Published private(set) var diceRolls: [RollResult]
     @Published var showingDiceRollList = false
     
-    @Published var segmentColor: UIColor = .blue
+    //@Published var segmentColor: UIColor = .blue
     
     @Published var rollTotal = 2
     @Published var degree = 0.0
@@ -65,6 +92,11 @@ extension ContentView {
       
       save()
     }
+
+//    func updatePickerColor() {
+//        let appearance = UISegmentedControl.appearance(for: .current)  // <- here
+//        appearance.selectedSegmentTintColor = UIColor(pickerColor.color)
+//    }
     
   }
 }
