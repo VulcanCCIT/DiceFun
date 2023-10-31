@@ -42,7 +42,7 @@ struct ContentView: View {
   var body: some View {
     
     NavigationStack {
-      GeometryReader { geo in
+      //GeometryReader { geo in
         VStack {
           Picker(selection: $pickerColor, content: {
             ForEach(PickerColor.allCases) { color in
@@ -67,21 +67,20 @@ struct ContentView: View {
           HStack {
             Image("\(pickerColor)\(viewModel.diceVal1)")
               .resizable()
-              .frame(width: geo.size.width * 0.425, height:  geo.size.height * 0.265)
+              .frame(width: 125, height:  125)
               .rotation3DEffect(.degrees(viewModel.degree), axis: (x: 0, y: 0, z: 1))
               .offset(x: viewModel.bounce ? 0 : viewModel.dice1OffsetValX, y: viewModel.bounce ? 100 : viewModel.dice1OffsetValY)
               .animation(Animation.interpolatingSpring(stiffness: 50, damping: 15), value: viewModel.diceVal1)
             
             Image("\(pickerColor)\(viewModel.diceVal2)")
               .resizable()
-              .frame(width: geo.size.width * 0.425, height:  geo.size.height * 0.265)
+              .frame(width: 125, height:  125)
               .rotation3DEffect(.degrees(viewModel.degree2), axis: (x: 0, y: 0, z: 1))
               .offset(x: viewModel.bounce ? 0 : viewModel.dice2OffsetValX, y: viewModel.bounce ? 100 : viewModel.dice2OffsetValY)
               .animation(.interpolatingSpring(stiffness: 50, damping: 15), value: viewModel.diceVal2)
           } //HStack
-          .frame(width: geo.frame(in: .local).maxX, height: geo.frame(in: .local).maxY)
+          .frame(width: 350, height:550)
         }
-      }//nav
       .toolbar {
         ToolbarItem(placement: .navigationBarLeading) {
           Button {
@@ -102,8 +101,8 @@ struct ContentView: View {
           }
         }
       }
-    }//geo
-    .frame(width: 350, height: 650)
+      .padding()
+    }//nav
     .onReceive(timer) { time in
       print(viewModel.isActive)
       guard viewModel.isActive else { return }
@@ -116,7 +115,7 @@ struct ContentView: View {
         viewModel.dice1OffsetValX = CGFloat.random(in: -30...30)
         viewModel.dice1OffsetValY = CGFloat.random(in: -250...150)
         viewModel.dice2OffsetValX = CGFloat.random(in: -30...30)
-        viewModel.dice2OffsetValY = CGFloat.random(in: -250...150)
+        viewModel.dice2OffsetValY = CGFloat.random(in: -275...150)
         
         if soundOn { viewModel.feedback.impactOccurred() }
         
@@ -182,8 +181,7 @@ struct ContentView: View {
   func updatePickerColor() {
       let appearance = UISegmentedControl.appearance(for: .current)  // <- here
       appearance.selectedSegmentTintColor = UIColor(pickerColor.color)
-  }
-  
+  } 
 }
 
 #Preview {
