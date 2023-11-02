@@ -8,21 +8,9 @@
 import SwiftUI
 
 struct DiceRollListView: View {
-  @Environment(\.dismiss) var dismiss
   var diceRolls: [RollResult]
   
   var body: some View {
-    HStack {
-      Button {
-        dismiss()
-      } label: {
-        Image(systemName: "arrow.left")
-          .padding(.leading)
-        Text("Back")
-        
-      }
-      Spacer()
-    }
     Text("Past Dice Results")
       .font(.title2).bold()
     

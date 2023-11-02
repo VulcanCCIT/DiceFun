@@ -9,24 +9,24 @@ import AVFoundation
 import SwiftUI
 
 enum PickerColor: String, Hashable, Identifiable, CustomStringConvertible, CaseIterable {
-    case red
-    case yellow
-    case green
-    case blue
-    case purple
-
-    var id: String { rawValue }
-    var description: String { rawValue.capitalized }
-
-    var color: Color {
-        switch self {
-            case .red: .red
-            case .yellow: .yellow
-            case .green: .green
-            case .blue: .blue
-            case .purple: .purple
-        }
+  case red
+  case yellow
+  case green
+  case blue
+  case purple
+  
+  var id: String { rawValue }
+  var description: String { rawValue.capitalized }
+  
+  var color: Color {
+    switch self {
+      case .red: .red
+      case .yellow: .yellow
+      case .green: .green
+      case .blue: .blue
+      case .purple: .purple
     }
+  }
 }
 
 struct ContentView: View {
@@ -37,50 +37,49 @@ struct ContentView: View {
   @AppStorage("pickerColor") var pickerColor: PickerColor = .red
   
   var timer = Timer.publish(every: 0.2, on: .main, in: .common).autoconnect()
- 
+  
   
   var body: some View {
     
     NavigationStack {
-      //GeometryReader { geo in
-        VStack {
-          Picker(selection: $pickerColor, content: {
-            ForEach(PickerColor.allCases) { color in
-              Text(color.description)
-                .tag(color)
-            }
-          }, label: EmptyView.init)
-          .pickerStyle(.segmented)
-          .tint(pickerColor.color)                                   // <- here
-          .onAppear(perform: updatePickerColor)
-          .onChange(of: pickerColor,
-                    updatePickerColor)
-          .frame(height: 50)
-          Text("Roll Total: \(viewModel.rollTotal)")
-            .frame(width: 200)
-            .background(.red)
-            .foregroundColor(.white)
-            .font(.title.bold())
-            .ignoresSafeArea()
-            .clipShape(Capsule())
-            .padding()
-          HStack {
-            Image("\(pickerColor)\(viewModel.diceVal1)")
-              .resizable()
-              .frame(width: 125, height:  125)
-              .rotation3DEffect(.degrees(viewModel.degree), axis: (x: 0, y: 0, z: 1))
-              .offset(x: viewModel.bounce ? 0 : viewModel.dice1OffsetValX, y: viewModel.bounce ? 100 : viewModel.dice1OffsetValY)
-              .animation(Animation.interpolatingSpring(stiffness: 50, damping: 15), value: viewModel.diceVal1)
-            
-            Image("\(pickerColor)\(viewModel.diceVal2)")
-              .resizable()
-              .frame(width: 125, height:  125)
-              .rotation3DEffect(.degrees(viewModel.degree2), axis: (x: 0, y: 0, z: 1))
-              .offset(x: viewModel.bounce ? 0 : viewModel.dice2OffsetValX, y: viewModel.bounce ? 100 : viewModel.dice2OffsetValY)
-              .animation(.interpolatingSpring(stiffness: 50, damping: 15), value: viewModel.diceVal2)
-          } //HStack
-          .frame(width: 350, height:550)
-        }
+      VStack {
+        Picker(selection: $pickerColor, content: {
+          ForEach(PickerColor.allCases) { color in
+            Text(color.description)
+              .tag(color)
+          }
+        }, label: EmptyView.init)
+        .pickerStyle(.segmented)
+        .tint(pickerColor.color)                                   // <- here
+        .onAppear(perform: updatePickerColor)
+        .onChange(of: pickerColor,
+                  updatePickerColor)
+        .frame(height: 50)
+        Text("Roll Total: \(viewModel.rollTotal)")
+          .frame(width: 200)
+          .background(.red)
+          .foregroundColor(.white)
+          .font(.title.bold())
+          .ignoresSafeArea()
+          .clipShape(Capsule())
+          .padding()
+        HStack {
+          Image("\(pickerColor)\(viewModel.diceVal1)")
+            .resizable()
+            .frame(width: 125, height:  125)
+            .rotation3DEffect(.degrees(viewModel.degree), axis: (x: 0, y: 0, z: 1))
+            .offset(x: viewModel.bounce ? 0 : viewModel.dice1OffsetValX, y: viewModel.bounce ? 100 : viewModel.dice1OffsetValY)
+            .animation(Animation.interpolatingSpring(stiffness: 50, damping: 15), value: viewModel.diceVal1)
+          
+          Image("\(pickerColor)\(viewModel.diceVal2)")
+            .resizable()
+            .frame(width: 125, height:  125)
+            .rotation3DEffect(.degrees(viewModel.degree2), axis: (x: 0, y: 0, z: 1))
+            .offset(x: viewModel.bounce ? 0 : viewModel.dice2OffsetValX, y: viewModel.bounce ? 100 : viewModel.dice2OffsetValY)
+            .animation(.interpolatingSpring(stiffness: 50, damping: 15), value: viewModel.diceVal2)
+        } //HStack
+        .frame(width: 350, height:550)
+      }
       .toolbar {
         ToolbarItem(placement: .navigationBarLeading) {
           Button {
@@ -89,15 +88,9 @@ struct ContentView: View {
             Label("Sound On/Off",  systemImage: soundOn ? "speaker.wave.3" :  "speaker.slash")
           }
         }
-        ToolbarItem(placement: .navigationBarTrailing) {
-          Button {
-            viewModel.showingDiceRollList.toggle()
-          } label: {
-            Label("Show Roll List",  systemImage: "dice")
-          }
-          // is it better to use a NavigationLink here?
-          .sheet(isPresented: $viewModel.showingDiceRollList) {
-            DiceRollListView(diceRolls: viewModel.diceRolls)
+        ToolbarItemGroup(placement: .navigationBarTrailing) {
+          NavigationLink(destination: DiceRollListView(diceRolls: viewModel.diceRolls)) {
+            Image(systemName: "dice")
           }
         }
       }
@@ -179,9 +172,9 @@ struct ContentView: View {
   }
   
   func updatePickerColor() {
-      let appearance = UISegmentedControl.appearance(for: .current)  // <- here
-      appearance.selectedSegmentTintColor = UIColor(pickerColor.color)
-  } 
+    let appearance = UISegmentedControl.appearance(for: .current)  // <- here
+    appearance.selectedSegmentTintColor = UIColor(pickerColor.color)
+  }
 }
 
 #Preview {
