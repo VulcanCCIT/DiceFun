@@ -50,8 +50,7 @@ struct ContentView: View {
           }
         }, label: EmptyView.init)
         .pickerStyle(.segmented)
-        .tint(pickerColor.color)                                   // <- here
-        .onAppear(perform: updatePickerColor)
+        .tint(pickerColor.color)                                            .onAppear(perform: updatePickerColor)
         .onChange(of: pickerColor,
                   updatePickerColor)
         .frame(height: 50)
@@ -67,6 +66,7 @@ struct ContentView: View {
           Image("\(pickerColor)\(viewModel.diceVal1)")
             .resizable()
             .frame(width: 125, height:  125)
+            .shadow(color: pickerColor.color.opacity(0.4), radius: 10, x: 10, y: -12)
             .rotation3DEffect(.degrees(viewModel.degree), axis: (x: 0, y: 0, z: 1))
             .offset(x: viewModel.bounce ? 0 : viewModel.dice1OffsetValX, y: viewModel.bounce ? 100 : viewModel.dice1OffsetValY)
             .animation(Animation.interpolatingSpring(stiffness: 50, damping: 15), value: viewModel.diceVal1)
@@ -74,6 +74,7 @@ struct ContentView: View {
           Image("\(pickerColor)\(viewModel.diceVal2)")
             .resizable()
             .frame(width: 125, height:  125)
+            .shadow(color: pickerColor.color.opacity(0.4), radius: 10, x: 10, y: -12)
             .rotation3DEffect(.degrees(viewModel.degree2), axis: (x: 0, y: 0, z: 1))
             .offset(x: viewModel.bounce ? 0 : viewModel.dice2OffsetValX, y: viewModel.bounce ? 100 : viewModel.dice2OffsetValY)
             .animation(.interpolatingSpring(stiffness: 50, damping: 15), value: viewModel.diceVal2)
