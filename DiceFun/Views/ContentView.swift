@@ -50,7 +50,7 @@ struct ContentView: View {
           }
         }, label: EmptyView.init)
         .pickerStyle(.segmented)
-        .tint(pickerColor.color)                                            .onAppear(perform: updatePickerColor)
+        .tint(pickerColor.color)                                        .onAppear(perform: updatePickerColor)
         .onChange(of: pickerColor,
                   updatePickerColor)
         .frame(height: 50)
@@ -79,78 +79,77 @@ struct ContentView: View {
             .offset(x: viewModel.bounce ? 0 : viewModel.dice2OffsetValX, y: viewModel.bounce ? 100 : viewModel.dice2OffsetValY)
             .animation(.interpolatingSpring(stiffness: 50, damping: 15), value: viewModel.diceVal2)
         } //HStack
-        .frame(width: 350, height:550)
+        .frame(width: 350, height:500)
+        .toolbar {
+          ToolbarItem(placement: .navigationBarLeading) {
+            Button {
+              soundOn.toggle()
+            } label: {
+              Label("Sound On/Off",  systemImage: soundOn ? "speaker.wave.3" :  "speaker.slash")
+            }
+          }
+          ToolbarItemGroup(placement: .navigationBarTrailing) {
+            NavigationLink(destination: DiceRollListView()){
+              Image(systemName: "dice")
+            }
+          }
+        }
+        .padding(.bottom)
+      }//nav
+      .onReceive(timer) { time in
+        print(viewModel.isActive)
+        guard viewModel.isActive else { return }
+        
+        if viewModel.timeRemaining > 0 {
+          viewModel.timeRemaining -= 1
+          viewModel.diceVal1 = Int.random(in: 1...6)
+          viewModel.diceVal2 = Int.random(in: 1...6)
+          
+          viewModel.dice1OffsetValX = CGFloat.random(in: -30...30)
+          viewModel.dice1OffsetValY = CGFloat.random(in: -180...100)
+          viewModel.dice2OffsetValX = CGFloat.random(in: -30...30)
+          viewModel.dice2OffsetValY = CGFloat.random(in: -180...100)
+          
+          if soundOn { viewModel.feedback.impactOccurred() }
+          
+          print(viewModel.timeRemaining)
+          print(viewModel.dice1OffsetValX)
+          print(viewModel.dice1OffsetValY)
+        }
+        if viewModel.timeRemaining == 1 { viewModel.isActive = false
+          
+          print("timerstopped")
+          viewModel.updateRolls()
+        }
       }
-      .toolbar {
-        ToolbarItem(placement: .navigationBarLeading) {
-          Button {
-            soundOn.toggle()
-          } label: {
-            Label("Sound On/Off",  systemImage: soundOn ? "speaker.wave.3" :  "speaker.slash")
-          }
+      .onChange(of: scenePhase) { //newPhase in
+        if scenePhase == .active {
+          viewModel.isActive = true
+        } else {
+          viewModel.isActive = false
         }
-        ToolbarItemGroup(placement: .navigationBarTrailing) {
-          NavigationLink(destination: DiceRollListView(diceRolls: viewModel.diceRolls)) {
-            Image(systemName: "dice")
-          }
-        }
+      }
+      
+      Button("Roll Dice!") {
+        viewModel.isActive = true
+        viewModel.dice1OffsetValX = CGFloat.random(in: -40...40)
+        viewModel.dice1OffsetValY = CGFloat.random(in: -275...225)
+        viewModel.dice1OffsetValX = CGFloat.random(in: -40...40)
+        viewModel.dice1OffsetValY = CGFloat.random(in: -275...225)
+        
+        spin()
+        viewModel.bounce.toggle()
+        viewModel.degree += 360
+        viewModel.degree2 += 360
+        viewModel.angle += 45
       }
       .padding()
-    }//nav
-    .onReceive(timer) { time in
-      print(viewModel.isActive)
-      guard viewModel.isActive else { return }
-      
-      if viewModel.timeRemaining > 0 {
-        viewModel.timeRemaining -= 1
-        viewModel.diceVal1 = Int.random(in: 1...6)
-        viewModel.diceVal2 = Int.random(in: 1...6)
-        
-        viewModel.dice1OffsetValX = CGFloat.random(in: -30...30)
-        viewModel.dice1OffsetValY = CGFloat.random(in: -250...150)
-        viewModel.dice2OffsetValX = CGFloat.random(in: -30...30)
-        viewModel.dice2OffsetValY = CGFloat.random(in: -275...150)
-        
-        if soundOn { viewModel.feedback.impactOccurred() }
-        
-        print(viewModel.timeRemaining)
-        print(viewModel.dice1OffsetValX)
-        print(viewModel.dice1OffsetValY)
-      }
-      if viewModel.timeRemaining == 1 { viewModel.isActive = false
-        
-        print("timerstopped")
-        viewModel.updateRolls()
-      }
-    }
-    .onChange(of: scenePhase) { //newPhase in
-      if scenePhase == .active {
-        viewModel.isActive = true
-      } else {
-        viewModel.isActive = false
-      }
-    }
-    
-    Spacer()
-    
-    Button("Roll Dice!") {
-      viewModel.isActive = true
-      viewModel.dice1OffsetValX = CGFloat.random(in: -40...40)
-      viewModel.dice1OffsetValY = CGFloat.random(in: -275...275)
-      viewModel.dice1OffsetValX = CGFloat.random(in: -40...40)
-      viewModel.dice1OffsetValY = CGFloat.random(in: -275...275)
-      
-      spin()
-      viewModel.bounce.toggle()
-      viewModel.degree += 360
-      viewModel.degree2 += 360
-      viewModel.angle += 45
-    }
-    .padding()
-    .background(.blue)
-    .foregroundColor(.white)
-    .clipShape(Capsule())
-  }
+      .background(.blue)
+      .foregroundColor(.white)
+      .clipShape(Capsule())
+    }//VStack
+  }//View
+  
   
   func spin() {
     

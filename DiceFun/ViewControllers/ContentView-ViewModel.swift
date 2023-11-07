@@ -18,11 +18,10 @@ extension ContentView {
     
     @Published var feedback = UIImpactFeedbackGenerator(style: .rigid)
     
-    @Published private(set) var diceRolls: [RollResult]
+    //@Published private(set) var diceRolls: [RollResult]
+    @Published var diceRolls: [RollResult]
     @Published var showingDiceRollList = false
-    
-    //@Published var segmentColor: UIColor = .blue
-    
+        
     @Published var rollTotal = 2
     @Published var degree = 0.0
     @Published var degree2 = 0.0
