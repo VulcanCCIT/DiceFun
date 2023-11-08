@@ -53,7 +53,7 @@ struct ContentView: View {
         .tint(pickerColor.color)                                        .onAppear(perform: updatePickerColor)
         .onChange(of: pickerColor,
                   updatePickerColor)
-        .frame(height: 50)
+        .padding()
         Text("Roll Total: \(viewModel.rollTotal)")
           .frame(width: 200)
           .background(.red)
@@ -61,7 +61,7 @@ struct ContentView: View {
           .font(.title.bold())
           .ignoresSafeArea()
           .clipShape(Capsule())
-          .padding()
+          .padding([.leading, .trailing, .bottom])
         HStack {
           Image("\(pickerColor)\(viewModel.diceVal1)")
             .resizable()
@@ -79,7 +79,8 @@ struct ContentView: View {
             .offset(x: viewModel.bounce ? 0 : viewModel.dice2OffsetValX, y: viewModel.bounce ? 100 : viewModel.dice2OffsetValY)
             .animation(.interpolatingSpring(stiffness: 50, damping: 15), value: viewModel.diceVal2)
         } //HStack
-        .frame(width: 350, height:500)
+        .frame(width: 350, height:600)
+        .padding()
         .toolbar {
           ToolbarItem(placement: .navigationBarLeading) {
             Button {
@@ -92,9 +93,9 @@ struct ContentView: View {
             NavigationLink(destination: DiceRollListView()){
               Image(systemName: "dice")
             }
+            .padding()
           }
         }
-        .padding(.bottom)
       }//nav
       .onReceive(timer) { time in
         print(viewModel.isActive)
