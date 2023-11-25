@@ -63,9 +63,9 @@ struct ContentView: View {
           .padding([.leading, .trailing, .bottom])
         Spacer()
         HStack {
-          DiceView(diceVal: "\(pickerColor)\(viewModel.diceVal1)", diceColor: pickerColor.color, degree: viewModel.degree, offsetX: viewModel.dice1OffsetValX, offsetY: viewModel.dice1OffsetValY)
+          DiceView(diceVal: "\(pickerColor)\(viewModel.diceVal1)", diceColor: pickerColor.color, degree: viewModel.degree, offsetX: viewModel.dice1OffsetValX, offsetY: viewModel.dice1OffsetValY, offsetZ: viewModel.dice1OffsetValZ)
           
-          DiceView(diceVal: "\(pickerColor)\(viewModel.diceVal2)", diceColor: pickerColor.color, degree: viewModel.degree2, offsetX: viewModel.dice2OffsetValX, offsetY: viewModel.dice2OffsetValY)
+          DiceView(diceVal: "\(pickerColor)\(viewModel.diceVal2)", diceColor: pickerColor.color, degree: viewModel.degree2, offsetX: viewModel.dice2OffsetValX, offsetY: viewModel.dice2OffsetValY, offsetZ: viewModel.dice2OffsetValZ)
           
         } //HStack
         .padding()

@@ -13,6 +13,7 @@ struct DiceView: View {
   var degree = 0.0
   var offsetX: CGFloat = 0
   var offsetY: CGFloat = -250
+  var offsetZ: CGFloat = 1
   
     var body: some View {
       Image(diceVal)
@@ -23,6 +24,7 @@ struct DiceView: View {
         .offset(x: offsetX, y: offsetY)
        
         .animation(Animation.interpolatingSpring(stiffness: 50, damping: 15), value: diceVal)
+        .scaleEffect(offsetZ)
     }
 }
 

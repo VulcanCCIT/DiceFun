@@ -35,6 +35,10 @@ extension ContentView {
     @Published var dice2OffsetValX: CGFloat = 0
     @Published var dice2OffsetValY: CGFloat = -250
     
+    @Published var dice1OffsetValZ: CGFloat = 1
+    @Published var dice2OffsetValZ: CGFloat = 1
+    
+    
     @Published var diceVal1 = 1
     @Published var diceVal2 = 1
     
@@ -86,6 +90,8 @@ extension ContentView {
       isActive = true
       if soundOn { playSounds("DiceRollCustom1.wav") }
       timeRemaining = 10
+      dice1OffsetValZ = 1
+      dice2OffsetValZ = 1
       print("time remaining: \(timeRemaining)")
       bounce.toggle()
       degree += 360
@@ -108,6 +114,9 @@ extension ContentView {
         dice2OffsetValX = CGFloat.random(in: -20...40)
         dice2OffsetValY = CGFloat.random(in: -400...30)
         
+        dice1OffsetValZ = CGFloat.random(in: 1...2.0)
+        dice2OffsetValZ = CGFloat.random(in: 1...2.0)
+        
         if soundOn { feedback.impactOccurred() }
         
         print("Time Remaining is: \(timeRemaining)")
@@ -116,9 +125,9 @@ extension ContentView {
         print("Bounce State is \(bounce)")
       }
       if timeRemaining == 1 { isActive = false
-        
+        dice1OffsetValZ = 1
+        dice2OffsetValZ = 1
         print("timerstopped")
-        //bounce.toggle()
         updateRolls()
       }
     }
