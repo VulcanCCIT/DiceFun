@@ -36,7 +36,7 @@ struct ContentView: View {
   @AppStorage("pickerColor") var pickerColor: PickerColor = .red
   
   var timer = Timer.publish(every: 0.2, on: .main, in: .common).autoconnect()
-    
+  
   var body: some View {
     
     NavigationStack {
@@ -51,7 +51,7 @@ struct ContentView: View {
         .tint(pickerColor.color)                                        .onAppear(perform: updatePickerColor)
         .onChange(of: pickerColor,
                   updatePickerColor)
-        .padding()
+        .padding(.bottom)
         
         Text("Roll Total: \(viewModel.rollTotal)")
           .frame(width: 200)
@@ -60,15 +60,18 @@ struct ContentView: View {
           .font(.title.bold())
           .ignoresSafeArea()
           .clipShape(Capsule())
-          .padding([.leading, .trailing, .bottom])
-        Spacer()
-        HStack {
-          DiceView(diceVal: "\(pickerColor)\(viewModel.diceVal1)", diceColor: pickerColor.color, degree: viewModel.degree, offsetX: viewModel.dice1OffsetValX, offsetY: viewModel.dice1OffsetValY, offsetZ: viewModel.dice1OffsetValZ)
-          
-          DiceView(diceVal: "\(pickerColor)\(viewModel.diceVal2)", diceColor: pickerColor.color, degree: viewModel.degree2, offsetX: viewModel.dice2OffsetValX, offsetY: viewModel.dice2OffsetValY, offsetZ: viewModel.dice2OffsetValZ)
-          
-        } //HStack
-        .padding()
+        ZStack {
+          Image("Leather4")
+            .resizable()
+            .shadow(color: .secondary.opacity(0.7), radius: 20)
+            .padding()
+          HStack {
+            DiceView(diceVal: "\(pickerColor)\(viewModel.diceVal1)", diceColor: pickerColor.color, degree: viewModel.degree, offsetX: viewModel.dice1OffsetValX, offsetY: viewModel.dice1OffsetValY, offsetZ: viewModel.dice1OffsetValZ)
+            
+            DiceView(diceVal: "\(pickerColor)\(viewModel.diceVal2)", diceColor: pickerColor.color, degree: viewModel.degree2, offsetX: viewModel.dice2OffsetValX, offsetY: viewModel.dice2OffsetValY, offsetZ: viewModel.dice2OffsetValZ)
+            
+          } //HStack
+        }//ZStack
         .toolbar {
           ToolbarItem(placement: .navigationBarLeading) {
             Button {
@@ -84,7 +87,7 @@ struct ContentView: View {
             .padding()
           }
         }
-      }//nav
+      }//VStack
       .onReceive(timer) { time in
         viewModel.diceOffset()
       }
@@ -95,7 +98,6 @@ struct ContentView: View {
           viewModel.isActive = false
         }
       }
-      
       Button("Roll Dice!") {
         viewModel.spin()
       }
@@ -103,9 +105,9 @@ struct ContentView: View {
       .background(.blue)
       .foregroundColor(.white)
       .clipShape(Capsule())
-    }//VStack
+    }//Nav
   }//View
-
+  
   func updatePickerColor() {
     let appearance = UISegmentedControl.appearance(for: .current)
     appearance.selectedSegmentTintColor = UIColor(pickerColor.color)

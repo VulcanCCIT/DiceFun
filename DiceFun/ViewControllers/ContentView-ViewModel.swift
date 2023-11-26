@@ -23,7 +23,7 @@ extension ContentView {
     //@Published private(set) var diceRolls: [RollResult]
     @Published var diceRolls: [RollResult]
     @Published var showingDiceRollList = false
-        
+    
     @Published var rollTotal = 2
     @Published var degree = 0.0
     @Published var degree2 = 0.0
@@ -31,9 +31,9 @@ extension ContentView {
     @Published var bounce = false
     
     @Published var dice1OffsetValX: CGFloat = 0
-    @Published var dice1OffsetValY: CGFloat = -250
+    @Published var dice1OffsetValY: CGFloat = -50
     @Published var dice2OffsetValX: CGFloat = 0
-    @Published var dice2OffsetValY: CGFloat = -250
+    @Published var dice2OffsetValY: CGFloat = -50
     
     @Published var dice1OffsetValZ: CGFloat = 1
     @Published var dice2OffsetValZ: CGFloat = 1
@@ -110,9 +110,9 @@ extension ContentView {
         diceVal2 = Int.random(in: 1...6)
         
         dice1OffsetValX = CGFloat.random(in: -20...40)
-        dice1OffsetValY = CGFloat.random(in: -400...30)
+        dice1OffsetValY = CGFloat.random(in: -100...100)
         dice2OffsetValX = CGFloat.random(in: -20...40)
-        dice2OffsetValY = CGFloat.random(in: -400...30)
+        dice2OffsetValY = CGFloat.random(in: -100...100)
         
         dice1OffsetValZ = CGFloat.random(in: 1...2.0)
         dice2OffsetValZ = CGFloat.random(in: 1...2.0)
