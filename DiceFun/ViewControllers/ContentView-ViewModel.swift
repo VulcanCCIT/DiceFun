@@ -13,14 +13,12 @@ import UIKit
 extension ContentView {
   @MainActor class ViewModel: ObservableObject {
     
-    //@AppStorage("pickerColor") var pickerColor: PickerColor = .red
     @AppStorage("soundOn") var soundOn = false
     
     let savePath = FileManager.documentsDirectory.appendingPathComponent("SavedRolls.json")
     
     @Published var feedback = UIImpactFeedbackGenerator(style: .rigid)
     
-    //@Published private(set) var diceRolls: [RollResult]
     @Published var diceRolls: [RollResult]
     @Published var showingDiceRollList = false
     
@@ -58,6 +56,10 @@ extension ContentView {
     
     func save() {
       do {
+        print("viewModel Save Function shows dicerolls to be: \(diceRolls)")
+        if diceRolls.isEmpty{ print("ContenView-ViewModel save function shows diceRolls is Empty...")}
+
+        print("Saving....")
         let data = try JSONEncoder().encode(diceRolls)
         try data.write(to: savePath, options: [.atomicWrite, .completeFileProtection])
       } catch {
@@ -66,10 +68,10 @@ extension ContentView {
     }
     
     func updateRolls() {
+      if diceRolls.isEmpty{ print("ContenView-ViewModel updateRolls shows diceRolls is Empty...")}
       rollTotal = diceVal1 + diceVal2
       diceRolls.append(RollResult(lastDice1RollValue: diceVal1, lastDice2RollValue: diceVal2, lastRollTotal: rollTotal))
       //print(diceRolls)
-      
       save()
     }
     
@@ -100,8 +102,6 @@ extension ContentView {
     }
     
     func diceOffset() {
-      //print("diceOffSet Called")
-      //print(isActive)
       guard isActive else { return }
       
       if timeRemaining > 0 {

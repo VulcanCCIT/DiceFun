@@ -99,8 +99,8 @@ struct ContentView: View {
         }
       }
       Button("Roll Dice!") {
-        viewModel.spin()
-      }
+        print("RollDice Button Press shows diceRolls to be: \(viewModel.diceRolls)")
+        viewModel.spin() }
       .padding()
       .background(.blue)
       .foregroundColor(.white)

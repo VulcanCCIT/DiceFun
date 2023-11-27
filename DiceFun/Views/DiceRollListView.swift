@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct DiceRollListView: View {
-  @Environment(\.scenePhase) var scenePhase
   @StateObject private var viewModel = ContentView.ViewModel()
   @State private var showingAlert = false
   
@@ -41,7 +40,7 @@ struct DiceRollListView: View {
             .fontWeight(.bold)
           
         }//HStack
-      }//List
+      }//List      
       .onDelete(perform: removeRolls)
     }//ForEach
     .toolbar {
@@ -60,24 +59,23 @@ struct DiceRollListView: View {
           primaryButton: .destructive(Text("Delete")) {
             viewModel.diceRolls = []
             print("Deleting...")
-            viewModel.save()
+            if viewModel.diceRolls.isEmpty {
+              viewModel.save()
+            }
           },
           secondaryButton: .cancel()
         )
       }
       }//tb
     }
-    .onChange(of: scenePhase) { //newPhase in
-      if scenePhase == .active {
-        viewModel.isActive = true
-      } else {
-        viewModel.isActive = false
-      }
-    }
+    .onAppear(perform: {
+      print(viewModel.diceRolls)
+    })
   }//View
   
   func removeRolls(at offsets: IndexSet) {
     viewModel.diceRolls.remove(atOffsets: offsets)
+    if viewModel.diceRolls.isEmpty { print("remove rolls shows array is empty") }
     viewModel.save()
     print("DiceRollListView Save was called")
   }
