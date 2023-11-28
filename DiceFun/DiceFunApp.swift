@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct DiceFunApp: App {
+  @State private var diceController = DiceController()
+  
   var body: some Scene {
     WindowGroup {
       ContentView()
+        .environment(diceController)
     }
   }
 }

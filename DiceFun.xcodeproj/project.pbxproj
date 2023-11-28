@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		635611AA2B15BD0E00EFC136 /* DiceRollView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635611A92B15BD0E00EFC136 /* DiceRollView-ViewModel.swift */; };
+		635611AC2B165EAD00EFC136 /* DiceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635611AB2B165EAC00EFC136 /* DiceController.swift */; };
+		635611AE2B165F9F00EFC136 /* PickerColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635611AD2B165F9F00EFC136 /* PickerColor.swift */; };
 		637883842B112B6C003DC3E0 /* DiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637883832B112B6C003DC3E0 /* DiceView.swift */; };
 		638DE56F2ADEDEB300037283 /* DiceFunApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638DE56E2ADEDEB300037283 /* DiceFunApp.swift */; };
 		638DE5712ADEDEB300037283 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638DE5702ADEDEB300037283 /* ContentView.swift */; };
@@ -21,7 +22,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		635611A92B15BD0E00EFC136 /* DiceRollView-ViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "DiceRollView-ViewModel.swift"; path = "../../../DiceFun5/DiceFun/ViewControllers/DiceRollView-ViewModel.swift"; sourceTree = "<group>"; };
+		635611AB2B165EAC00EFC136 /* DiceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiceController.swift; sourceTree = "<group>"; };
+		635611AD2B165F9F00EFC136 /* PickerColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerColor.swift; sourceTree = "<group>"; };
 		637883832B112B6C003DC3E0 /* DiceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiceView.swift; sourceTree = "<group>"; };
 		638DE56B2ADEDEB300037283 /* DiceFun.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DiceFun.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		638DE56E2ADEDEB300037283 /* DiceFunApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiceFunApp.swift; sourceTree = "<group>"; };
@@ -65,8 +67,10 @@
 		638DE56D2ADEDEB300037283 /* DiceFun */ = {
 			isa = PBXGroup;
 			children = (
-				63ADD04B2AE09A92009CBC18 /* DiceRollCustom1.wav */,
 				638DE56E2ADEDEB300037283 /* DiceFunApp.swift */,
+				635611AB2B165EAC00EFC136 /* DiceController.swift */,
+				63ADD04B2AE09A92009CBC18 /* DiceRollCustom1.wav */,
+				635611AD2B165F9F00EFC136 /* PickerColor.swift */,
 				638DE57C2ADEDF7600037283 /* Models */,
 				638DE57E2ADEDF9E00037283 /* Views */,
 				638DE57F2ADEDFAC00037283 /* ViewControllers */,
@@ -107,7 +111,6 @@
 			isa = PBXGroup;
 			children = (
 				638DE5862ADEED3600037283 /* ContentView-ViewModel.swift */,
-				635611A92B15BD0E00EFC136 /* DiceRollView-ViewModel.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -184,13 +187,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				638DE5712ADEDEB300037283 /* ContentView.swift in Sources */,
-				635611AA2B15BD0E00EFC136 /* DiceRollView-ViewModel.swift in Sources */,
 				638DE5872ADEED3600037283 /* ContentView-ViewModel.swift in Sources */,
 				638DE5812ADEE0C200037283 /* DiceData.swift in Sources */,
 				638DE5832ADEE11700037283 /* FileManager-DocumentsDirectory.swift in Sources */,
+				635611AC2B165EAD00EFC136 /* DiceController.swift in Sources */,
 				638DE5852ADEE15500037283 /* DiceRollListView.swift in Sources */,
 				637883842B112B6C003DC3E0 /* DiceView.swift in Sources */,
 				638DE56F2ADEDEB300037283 /* DiceFunApp.swift in Sources */,
+				635611AE2B165F9F00EFC136 /* PickerColor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

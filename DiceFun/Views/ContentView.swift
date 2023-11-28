@@ -5,31 +5,28 @@
 //  Created by Chuck Condron on 10/17/23.
 //
 
+//
+//  ContentView.swift
+//  DiceFun
+//
+//  Created by Chuck Condron on 10/17/23.
+//
+
 import AVFoundation
 import SwiftUI
 
-enum PickerColor: String, Hashable, Identifiable, CustomStringConvertible, CaseIterable {
-  case red
-  case yellow
-  case green
-  case blue
-  case purple
+extension String {
+  func capitalizingFirstLetter() -> String {
+    return prefix(1).capitalized + dropFirst()
+  }
   
-  var id: String { rawValue }
-  var description: String { rawValue.capitalized }
-  
-  var color: Color {
-    switch self {
-      case .red: .red
-      case .yellow: .yellow
-      case .green: .green
-      case .blue: .blue
-      case .purple: .purple
-    }
+  mutating func capitalizeFirstLetter() {
+    self = self.capitalizingFirstLetter()
   }
 }
 
 struct ContentView: View {
+  @Environment(DiceController.self) var diceController
   @StateObject private var viewModel = ViewModel()
   
   @Environment(\.scenePhase) var scenePhase
@@ -48,12 +45,13 @@ struct ContentView: View {
           }
         }, label: EmptyView.init)
         .pickerStyle(.segmented)
-        .tint(pickerColor.color)                                        .onAppear(perform: updatePickerColor)
+        .tint(pickerColor.color)
+        .onAppear(perform: updatePickerColor)
         .onChange(of: pickerColor,
                   updatePickerColor)
         .padding(.bottom)
         
-        Text("Roll Total: \(viewModel.rollTotal)")
+        Text("Roll Total: \(diceController.rollTotal)")
           .frame(width: 200)
           .background(.red)
           .foregroundColor(.white)
@@ -66,9 +64,9 @@ struct ContentView: View {
             .shadow(color: .secondary.opacity(0.7), radius: 20)
             .padding()
           HStack {
-            DiceView(diceVal: "\(pickerColor)\(viewModel.diceVal1)", diceColor: pickerColor.color, degree: viewModel.degree, offsetX: viewModel.dice1OffsetValX, offsetY: viewModel.dice1OffsetValY, offsetZ: viewModel.dice1OffsetValZ)
+            DiceView(diceVal: "\(pickerColor)\(diceController.diceVal1)", diceColor: pickerColor.color, degree: diceController.degree, offsetX: diceController.dice1OffsetValX, offsetY: diceController.dice1OffsetValY, offsetZ: diceController.dice1OffsetValZ)
             
-            DiceView(diceVal: "\(pickerColor)\(viewModel.diceVal2)", diceColor: pickerColor.color, degree: viewModel.degree2, offsetX: viewModel.dice2OffsetValX, offsetY: viewModel.dice2OffsetValY, offsetZ: viewModel.dice2OffsetValZ)
+            DiceView(diceVal: "\(pickerColor)\(diceController.diceVal2)", diceColor: pickerColor.color, degree: diceController.degree2, offsetX: diceController.dice2OffsetValX, offsetY: diceController.dice2OffsetValY, offsetZ: diceController.dice2OffsetValZ)
             
           } //HStack
         }//ZStack
@@ -89,31 +87,36 @@ struct ContentView: View {
         }
       }//VStack
       .onReceive(timer) { time in
-        viewModel.diceOffset()
+        diceController.diceOffset()
       }
       .onChange(of: scenePhase) { //newPhase in
         if scenePhase == .active {
-          viewModel.isActive = true
+          diceController.isActive = true
         } else {
-          viewModel.isActive = false
+          diceController.isActive = false
         }
       }
-      Button("Roll Dice!") {
-        print("RollDice Button Press shows diceRolls to be: \(viewModel.diceRolls)")
-        viewModel.spin() }
-      .padding()
-      .background(.blue)
-      .foregroundColor(.white)
-      .clipShape(Capsule())
+      Button("Roll Dice!", action: start)
+        .padding()
+        .background(.blue)
+        .foregroundColor(.white)
+        .clipShape(Capsule())
     }//Nav
   }//View
+  
+  func start() {
+    viewModel.playSounds("DiceRollCustom1.wav")
+    diceController.spin()
+  }
   
   func updatePickerColor() {
     let appearance = UISegmentedControl.appearance(for: .current)
     appearance.selectedSegmentTintColor = UIColor(pickerColor.color)
+    diceController.lastDiceColor = pickerColor.rawValue.capitalizingFirstLetter()
   }
 }
 
 #Preview {
   ContentView()
+    .environment(DiceController())
 }

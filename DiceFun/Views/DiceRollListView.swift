@@ -8,31 +8,29 @@
 import SwiftUI
 
 struct DiceRollListView: View {
-  @StateObject private var viewModel = ViewModel()
+  @Environment(DiceController.self) var dataController
+  
   @State private var showingAlert = false
- 
   
   var body: some View {
     Text("Past Dice Results")
       .font(.title2).bold()
     
     List {
-      ForEach(viewModel.diceRolls) { roll in
+      ForEach(dataController.rollResults) { roll in
         HStack {
-          Text("Dice 1: ")
-            .fontWeight(.bold)
-          Text("\(roll.lastDice1RollValue)")
-            .font(.title2)
-            .foregroundColor(.blue)
-            .fontWeight(.bold)
+          Image("\(roll.lastDiceColor)\(roll.lastDice1RollValue)")
+            .resizable()
+            .scaledToFit()
+            .frame(width: 50)
+            .padding(.horizontal)
           
-          Text("Dice 2: ")
-            .fontWeight(.bold)
-          Text("\(roll.lastDice2RollValue)")
-            .font(.title2)
-            .foregroundColor(.green)
-            .fontWeight(.bold)
+          Image("\(roll.lastDiceColor)\(roll.lastDice2RollValue)")
+            .resizable()
+            .scaledToFit()
+            .frame(width: 50)
           
+          Spacer()
           Text("Roll Total: ")
             .fontWeight(.bold)
           Text("\(roll.lastRollTotal)")
@@ -42,7 +40,7 @@ struct DiceRollListView: View {
           
         }//HStack
       }//List
-      .onDelete(perform: removeRolls)
+      .onDelete(perform: dataController.delete)
     }//ForEach
     .toolbar {
       ToolbarItem(placement: .destructiveAction) {
@@ -58,8 +56,11 @@ struct DiceRollListView: View {
           title: Text("Delete All Rolls?"),
           message: Text("There is no undo"),
           primaryButton: .destructive(Text("Delete")) {
-            viewModel.diceRolls = []
+            dataController.rollResults = []
             print("Deleting...")
+            if dataController.rollResults.isEmpty {
+              dataController.save()
+            }
           },
           secondaryButton: .cancel()
         )
@@ -67,16 +68,9 @@ struct DiceRollListView: View {
       }//tb
     }
   }//View
-  
-  func removeRolls(at offsets: IndexSet) {
-    viewModel.diceRolls.remove(atOffsets: offsets)
-    if viewModel.diceRolls.isEmpty { print("remove rolls shows array is empty") }
-    viewModel.save()
-    print("DiceRollListView Save was called")
-  }
 }
 
 #Preview {
-  //DiceRollListView(diceRolls: [RollResult(lastDice1RollValue: 3, lastDice2RollValue:4, lastRollTotal: 7)])
   DiceRollListView()
+    .environment(DiceController())
 }
