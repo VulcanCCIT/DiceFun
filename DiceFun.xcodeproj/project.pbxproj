@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		635611AA2B15BD0E00EFC136 /* DiceRollView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635611A92B15BD0E00EFC136 /* DiceRollView-ViewModel.swift */; };
 		637883842B112B6C003DC3E0 /* DiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637883832B112B6C003DC3E0 /* DiceView.swift */; };
 		638DE56F2ADEDEB300037283 /* DiceFunApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638DE56E2ADEDEB300037283 /* DiceFunApp.swift */; };
 		638DE5712ADEDEB300037283 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638DE5702ADEDEB300037283 /* ContentView.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		635611A92B15BD0E00EFC136 /* DiceRollView-ViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "DiceRollView-ViewModel.swift"; path = "../../../DiceFun5/DiceFun/ViewControllers/DiceRollView-ViewModel.swift"; sourceTree = "<group>"; };
 		637883832B112B6C003DC3E0 /* DiceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiceView.swift; sourceTree = "<group>"; };
 		638DE56B2ADEDEB300037283 /* DiceFun.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DiceFun.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		638DE56E2ADEDEB300037283 /* DiceFunApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiceFunApp.swift; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 			isa = PBXGroup;
 			children = (
 				638DE5862ADEED3600037283 /* ContentView-ViewModel.swift */,
+				635611A92B15BD0E00EFC136 /* DiceRollView-ViewModel.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -181,6 +184,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				638DE5712ADEDEB300037283 /* ContentView.swift in Sources */,
+				635611AA2B15BD0E00EFC136 /* DiceRollView-ViewModel.swift in Sources */,
 				638DE5872ADEED3600037283 /* ContentView-ViewModel.swift in Sources */,
 				638DE5812ADEE0C200037283 /* DiceData.swift in Sources */,
 				638DE5832ADEE11700037283 /* FileManager-DocumentsDirectory.swift in Sources */,
